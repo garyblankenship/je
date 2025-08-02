@@ -1,0 +1,62 @@
+linters:
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - errname
+    - errorlint
+    - funlen
+    - gocognit
+    - gocritic
+    - gofmt
+    - goimports
+    - revive
+
+linters-settings:
+  funlen:
+    lines: 80
+    statements: 50
+  gocognit:
+    min-complexity: 20
+  errorlint:
+    errorf: true
+    errorf-multi: true
+    asserts: true
+    comparison: true
+  gocritic:
+    enabled-checks:
+      - nestingReduce
+      - unnamedResult
+      - dupImport
+      - evalOrder
+      - appendCombine
+  revive:
+    rules:
+      - name: var-naming
+      - name: indent-error-flow
+      - name: error-return
+      - name: error-strings
+      - name: error-naming
+      - name: if-return
+      - name: modifies-parameter
+
+issues:
+  exclude-rules:
+    # Exclude test files from some linters
+    - path: _test\.go
+      linters:
+        - funlen
+        - gocognit
+    
+    # Allow longer functions in main.go
+    - path: cmd/je/main.go
+      linters:
+        - funlen
+
+run:
+  timeout: 5m
+  tests: true
